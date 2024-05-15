@@ -28,48 +28,21 @@ function subtraction(arr, i = 0) {
 }
 
 //3) Сделать функцию для обхода двумернного массива с целью поиска ближайших пар чисел
-/*function findClosestPair(arr, i = 0, j = 0, minDistance = Infinity, closestPairs = [])
-{
-    if(arr.length - 1 && j === arr[i].length - 1)
-        {
-            return closestPairs;
-        }
-
-        for(let k = i; k < arr.length; k++)
-            {
-                for(let l = (k === i ? j + 1 : 0); l <arr[k].length; l++)
-                    {
-                        const distance = Math.abs(arr[i][j] - arr[k][l])
-                        if(distance < minDistance)
-                            {
-                                closestPairs = [[i,j], [k,l]];
-                                minDistance = distance
-                            }
-                    }
-            }
-
-            if(j === arr[i].length - 1)
-                {
-                    return findClosestPair(arr, i+1, 0, minDistance, closestPairs);
-                }else{
-                    return findClosestPair(arr, i, j+1, 0, minDistance, closestPairs);
-                }
-
-}*/
-
 
 function findClosestPairs(arr) {
     let closestPairs = [];
-    let minDistance = Number.MAX_SAFE_INTEGER;
+    let minDistance = Infinity;
 
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr[i].length; j++) {
             for (let k = i; k < arr.length; k++) {
-                for (let l = (k === i ? j + 1 : 0); l < arr[k].length; l++) {
+                for (let l = (k === i) ? j + 1 : 0; l < arr[k].length; l++) {
                     const distance = Math.abs(arr[i][j] - arr[k][l]);
                     if (distance < minDistance) {
-                        closestPairs = [[i, j], [k, l]];
                         minDistance = distance;
+                        closestPairs = [[arr[i][j], arr[k][l]]];
+                    } else if (distance === minDistance) {
+                        closestPairs.push([arr[i][j], arr[k][l]]);
                     }
                 }
             }
@@ -86,8 +59,8 @@ let diff = subtraction(n);
 console.log(`Difference is: ${diff}`);
 let matrix =  [
     [1, 5, 9],
-    [3, 5, 11],
-    [4, 7, 13]
+    [1, 5, 11],
+    [2, 6, 10]
 ];
 
 let closestNum = findClosestPairs( matrix)
